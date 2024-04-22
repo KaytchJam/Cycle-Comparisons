@@ -26,6 +26,10 @@ impl ResetCounter {
         return Self::COUNTER[idx];
     }
 
+    pub fn as_slice() -> &'static [ResetCounter] {
+        return &Self::COUNTER;
+    }
+
     pub fn to_string(&self) -> &str {
         match self {
             Self::IfCounter => return "IfCounter",
