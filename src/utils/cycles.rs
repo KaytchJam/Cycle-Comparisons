@@ -1,14 +1,21 @@
 
 #[derive(Copy, Clone, Debug)]
 pub enum ResetCounter {
-    IfCounter = 0,
-    ModuloCounter = 1,
-    BooleanMulCounter = 2,
-    BooleanWrapCounter = 3
+    PlaceboCounter = 0,
+    IfCounter = 1,
+    ModuloCounter = 2,
+    BooleanMulCounter = 3,
+    BooleanWrapCounter = 4
 }
 
 impl ResetCounter {
-    const COUNTER: [ResetCounter; 4] = [Self::IfCounter, Self::ModuloCounter, Self::BooleanMulCounter, Self::BooleanWrapCounter];
+    const COUNTER: [ResetCounter; 5] = [
+        Self::PlaceboCounter, 
+        Self::IfCounter, 
+        Self::ModuloCounter, 
+        Self::BooleanMulCounter, 
+        Self::BooleanWrapCounter
+    ];
 
     pub fn cardinality() -> usize {
         return Self::COUNTER.len();
@@ -18,7 +25,7 @@ impl ResetCounter {
         return Self::COUNTER.iter();
     }
 
-    pub fn into_iter() -> std::array::IntoIter<ResetCounter, 4> {
+    pub fn into_iter() -> std::array::IntoIter<ResetCounter, 5> {
         return Self::COUNTER.into_iter();
     }
 
@@ -32,6 +39,7 @@ impl ResetCounter {
 
     pub fn to_string(&self) -> &str {
         match self {
+            Self::PlaceboCounter => return "Placebo",
             Self::IfCounter => return "IfCounter",
             Self::ModuloCounter => return "ModuloCounter",
             Self::BooleanMulCounter => return "BooleanMulCounter",
@@ -55,6 +63,10 @@ impl ResetCounter {
 
             Self::BooleanWrapCounter => {
                 Box::new(|idx: usize, reset_number: usize| idx & 0usize.wrapping_sub(!(idx >= reset_number) as usize))
+            },
+
+            Self::PlaceboCounter => {
+                Box::new(|_idx: usize, _reset_number: usize| 0_usize)
             }
         }
     }
