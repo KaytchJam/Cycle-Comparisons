@@ -102,5 +102,5 @@ fn example() {
 
 #### Todo
 
-- [ ] Generate Frequency Distributions for each Counter Method
+- [x] Generate Frequency Distributions for each Counter Method
 - [ ] Observe whether changes in the 'RESET_NUMBER` influence performance
